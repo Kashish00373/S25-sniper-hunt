@@ -1,25 +1,26 @@
-name: S25_Ultra_Worker_Farm
+    name: S25_Ultra_Worker_Farm
 
 on:
-  workflow_dispatch: # Taaki tu button daba kar shuru kar sake
+  workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *' # Har 6 ghante mein apne aap dubara chalega
+    - cron: '0 */6 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install Dependencies
-        run: pip install coincurve pyTelegramBotAPI requests
+      - name: Install Tools
+        run: |
+          pip install --upgrade pip
+          pip install coincurve pyTelegramBotAPI requests base58
 
-      - name: Run Sniper Worker
-        run: python worker.py
-concurrency: 
+      - name: Run Sniper
+        run: python bot.py
